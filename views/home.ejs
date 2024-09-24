@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html>
+<head>
+<script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+</head>
+<body>
+    <div class="edit-container">
+        <h1></h1>
+        <form action="#">
+            <input type="text"/>
+                    
+                <input type="submit" value="Send" onclick="sendMessage()">
+            
+        </form>
+    </div>
+    <script>
+const socket= io("http://localhost:3000");
+socket.on("connection",()=>{
+console.log("unique connection");
+});
+
+socket.on("message", (data)=>{
+
+document.querySelector("h1").innerText=data;
+});
+
+
+const sendMessage=()=>{ 
+
+let message= document.querySelector("input").value;
+socket.emit("message", message);
+
+}
+</script>
+</body>
+<html>
+
